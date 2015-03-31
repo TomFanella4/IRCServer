@@ -17,11 +17,11 @@ int HashTableVoid::hash(const char * key)
 }
 
 // Constructor for hash table. Initializes hash table
-HashTableVoid::HashTableVoid()
-{
-	_buckets = (HashTableVoidEntry **) malloc(TableSize * sizeof(HashTableVoidEntry*));
-	for (int i = 0; i < TableSize; i++)
+HashTableVoid::HashTableVoid() {
+	_buckets = (HashTableVoidEntry**)malloc(TableSize*sizeof(HashTableVoidEntry*));
+	for (int i= 0;i<TableSize;i++) {
 		_buckets[i] = NULL;
+	}
 }
 
 // Add a record to the hash table. Returns true if key already exists.
