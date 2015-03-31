@@ -109,6 +109,8 @@ bool HashTableVoidIterator::next(const char * & key, void * & data)
 		if (next != NULL) {
 			data = next->_data;
 			key = next->_key;
+			_currentEntry = next;
+			_currentBucket++;
 			return true;
 		}
 	}
