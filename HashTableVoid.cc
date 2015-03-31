@@ -18,9 +18,9 @@ int HashTableVoid::hash(const char * key)
 
 // Constructor for hash table. Initializes hash table
 HashTableVoid::HashTableVoid() {
-	_buckets = (HashTableVoidEntry**)malloc(TableSize*
+	_buckets = (HashTableVoidEntry**)malloc(TableSize *
 				sizeof(HashTableVoidEntry*));
-	for (int i= 0;i<TableSize;i++) {
+	for (int i = 0;i<TableSize;i++) {
 		_buckets[i] = NULL;
 	}
 }
@@ -55,8 +55,18 @@ bool HashTableVoid::insertItem( const char * key, void * data)
 // Returns false if key is does not exist
 bool HashTableVoid::find( const char * key, void ** data)
 {
-  // Add implementation here
-  return false;
+	int h = hash(key);
+
+	HashTableVoidEntry * e = _buckets[h];
+	while (e != NULL) {
+		if (!strcmp(e->_key, key)) {
+			//Entry found
+			*data = e->_data;
+			return true;
+		}
+		e = e->_next;
+	}
+	return false;
 }
 
 // Removes an element in the hash table. Return false if key does not exist.
