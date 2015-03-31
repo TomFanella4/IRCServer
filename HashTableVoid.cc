@@ -99,22 +99,40 @@ HashTableVoidIterator::HashTableVoidIterator(HashTableVoid * hashTable)
 	_hashTable = hashTable;
 	_currentEntry = hashTable->_buckets[0];
 	_currentBucket = 0;
+
+	while (_currentEntry == NULL) {
+		_currentBucket++;
+		_currentEntry = hashTable->_buckets[_currentBucket];
+	}
 }
 
 // Returns true if there is a next element. Stores data value in data.
 bool HashTableVoidIterator::next(const char * & key, void * & data)
 {
+	printf("Start Interator\n");
+
+	printf("Not Null");
+
+	data = _currentEntry->_data;
+	key = _currentEntry->_key;
+
+	printf("%s\n", key);
+
+	_currentBucket++;
+	_currentEntry = _hashTable->_buckets[_currentBucket];
+	printf("Bucket: %d\n", _currentBucket);
+		
+	while (_currentEntry == NULL) {
+		_currentBucket++;
+		_currentEntry = _hashTable->_buckets[_currentBucket];
+	}
+		
+	printf("Got next not null bucket\n");
+
 	if (_currentEntry != NULL) {
-		HashTableVoidEntry * next = _currentEntry->_next;
-	
-		if (next != NULL) {
-			data = next->_data;
-			key = next->_key;
-			printf("%s\n", key);
-			_currentEntry = next;
-			_currentBucket++;
+			//data = _currentEntry->_data;
+			//key = _currentEntry->_key;
 			return true;
-		}
 	}
 	return false;
 }
