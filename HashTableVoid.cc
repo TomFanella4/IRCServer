@@ -118,6 +118,7 @@ bool HashTableVoidIterator::next(const char * & key, void * & data)
 
 	_currentBucket++;
 	_currentEntry = _hashTable->_buckets[_currentBucket];
+	
 	return true;
 }
 
