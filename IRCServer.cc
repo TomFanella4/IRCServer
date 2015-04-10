@@ -277,6 +277,16 @@ IRCServer::initialize()
 	passwordFile = fopen(PASSWORD_FILE, "a+");
 
 	// Initialize users in room
+	char * currentLine;
+	const char * token;
+
+	while (fgets(currentLine, 50, passwordFile) != NULL) {
+		token = strtok(currentLine, " ");
+		users[currentUser].username = token;
+		token = strtok(NULL, " ");
+		users[currentUser].password = token;
+		currentUser++;
+	}
 
 	// Initalize message list
 
@@ -286,7 +296,7 @@ bool
 IRCServer::checkPassword(int fd, const char * user, const char * password) {
 	char * currentLine;
 
-	while(fgets(currentLine, 50, passwordFile) != NULL)
+	while (fgets(currentLine, 50, passwordFile) != NULL)
 		if (strstr(currentLine, user) && strstr(currentLine, password))
 			return true;
 	
@@ -346,7 +356,7 @@ IRCServer::getAllUsers(int fd, const char * user, const char * password,const  c
 	
 	const char * msg;
 
-	if (checkPassword(fd, user, password)) {	
+	if (!checkPassword(fd, user, password)) {	
 		msg =  "DENIED\r\n";
 		write(fd, msg, strlen(msg));
 		return;
