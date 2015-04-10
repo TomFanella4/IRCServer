@@ -284,8 +284,13 @@ IRCServer::initialize()
 
 bool
 IRCServer::checkPassword(int fd, const char * user, const char * password) {
-	// Here check the password
-	return true;
+	char * currentLine;
+
+	while(fgets(currentLine, 50, passwordFile) != NULL)
+		if (strstr(currentLine, user) && strstr(currentLine, password))
+			return true;
+	
+	return false;
 }
 
 void
@@ -337,8 +342,21 @@ IRCServer::getUsersInRoom(int fd, const char * user, const char * password, cons
 }
 
 void
-IRCServer::getAllUsers(int fd, const char * user, const char * password,const  char * args)
-{
+IRCServer::getAllUsers(int fd, const char * user, const char * password,const  char * args) {
+	
+	const char * msg;
 
+	if (!checkPassword(fd, user, password)) {	
+		msg =  "DENIED\r\n";
+		write(fd, msg, strlen(msg));
+		return;
+	}
+	
+	for (int i = 0; i < currentUser; i++) {
+		msg = users[i].username;
+		write(fd, msg, strlen(msg));
+	}
+	
+	write(fd, "\r\n", strlen("\r\n"));
 }
 
