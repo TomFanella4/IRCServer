@@ -216,10 +216,16 @@ IRCServer::processRequest( int fd )
 
 	const char * command = token;
 	token = strtok(NULL, " ");
+
 	const char * user = token;
 	token = strtok(NULL, " ");
+	
 	const char * password = token;
 	token = strtok(NULL, " ");
+	
+	if (token == NULL)
+		token == "";
+
 	const char * args = token;
 
 	printf("command=%s\n", command);
