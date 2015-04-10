@@ -259,6 +259,11 @@ void
 IRCServer::initialize()
 {
 	// Open password file
+	currentUser = 0;
+	maxUsers = 20;
+	users = (User*) malloc(sizeof(User) * maxUsers);	
+	
+	passwordFile = fopen(PASSWORD_FILE, "a+");
 
 	// Initialize users in room
 
@@ -277,10 +282,21 @@ IRCServer::addUser(int fd, const char * user, const char * password, const char 
 {
 	// Here add a new user. For now always return OK.
 
+	if (currentUser == maxUsers) {
+		maxUsers*=2;
+		realloc(users, sizeof(User) * maxUsers);
+	}
+
+	users[currentUser].username = user;
+	users[currentUser].password = password;
+	currentUser++;
+
+	fprintf(passwordFile, "%s %s\n", user, password);
+
 	const char * msg =  "OK\r\n";
 	write(fd, msg, strlen(msg));
 
-	return;		
+	return;
 }
 
 void

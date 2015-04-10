@@ -6,6 +6,16 @@
 
 class IRCServer {
 	// Add any variables you need
+	FILE * passwordFile;
+
+	typedef struct {
+		const char * username;
+		const char * password;
+	} User;
+
+	int currentUser;
+	int maxUsers;
+	User * users;
 
 private:
 	int open_server_socket(int port);
