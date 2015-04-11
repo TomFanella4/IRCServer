@@ -284,6 +284,7 @@ IRCServer::initialize()
 	while (fgets(currentLine, 50, passwordFile) != NULL) {
 		printf("Into while\n");
 		token = strtok(currentLine, " ");
+		printf("%s\n", token);
 		users[currentUser].username = token;
 		
 		token = strtok(NULL, " ");
