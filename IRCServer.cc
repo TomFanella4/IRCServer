@@ -294,6 +294,7 @@ IRCServer::initialize()
 		currentUser++;
 	}
 
+	printf("CU: %d, First: %s\n", currentUser, users[0].username);
 	// Initalize message list
 
 }
