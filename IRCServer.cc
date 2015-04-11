@@ -360,15 +360,16 @@ IRCServer::getAllUsers(int fd, const char * user, const char * password,const  c
 	
 	const char * msg;
 
-	if (!checkPassword(fd, user, password)) {	
+	/*if (!checkPassword(fd, user, password)) {	
 		msg =  "DENIED\r\n";
 		write(fd, msg, strlen(msg));
 		return;
-	}
+	}*/
 	
 	for (int i = 0; i < currentUser; i++) {
-		msg = users[i].username;
-		write(fd, msg, strlen(msg));
+		const char * uList;
+		uList = users[i].username;
+		write(fd, uList, strlen(uList));
 	}
 	
 	write(fd, "\r\n", strlen("\r\n"));
