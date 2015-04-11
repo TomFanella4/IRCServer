@@ -270,7 +270,7 @@ void
 IRCServer::initialize()
 {
 	// Open password file
-	currentUser = 0;
+	/*currentUser = 0;
 	maxUsers = 20;
 	users = (User*) malloc(sizeof(User) * maxUsers);	
 	
@@ -289,7 +289,7 @@ IRCServer::initialize()
 		
 		currentUser++;
 	}
-
+*/
 	// Initalize message list
 
 }
