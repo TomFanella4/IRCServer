@@ -224,7 +224,7 @@ IRCServer::processRequest( int fd )
 	token = strtok(NULL, " ");
 	
 	if (token == NULL)
-		token = "";
+		strcpy(token, "");
 
 	const char * args = token;
 
@@ -278,13 +278,15 @@ IRCServer::initialize()
 
 	// Initialize users in room
 	char * currentLine;
-	const char * token;
+	char * token;
 
 	while (fgets(currentLine, 50, passwordFile) != NULL) {
 		token = strtok(currentLine, " ");
 		users[currentUser].username = token;
+		
 		token = strtok(NULL, " ");
 		users[currentUser].password = token;
+		
 		currentUser++;
 	}
 
