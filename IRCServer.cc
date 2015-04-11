@@ -270,7 +270,7 @@ void
 IRCServer::initialize()
 {
 	// Open password file
-	/*currentUser = 0;
+	currentUser = 0;
 	maxUsers = 20;
 	users = (User*) malloc(sizeof(User) * maxUsers);	
 	
@@ -282,14 +282,14 @@ IRCServer::initialize()
 
 	while (fgets(currentLine, 50, passwordFile) != NULL) {
 		token = strtok(currentLine, " ");
-		users[currentUser].username = token;
+		//users[currentUser].username = token;
 		
 		token = strtok(NULL, " ");
-		users[currentUser].password = token;
+		//users[currentUser].password = token;
 		
 		currentUser++;
 	}
-*/
+
 	// Initalize message list
 
 }
