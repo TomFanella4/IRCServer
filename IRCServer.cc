@@ -298,7 +298,7 @@ IRCServer::initialize()
 
 bool
 IRCServer::checkPassword(int fd, const char * user, const char * password) {
-	char * currentLine;
+	char currentLine[50];
 
 	while (fgets(currentLine, 50, passwordFile) != NULL)
 		if (strstr(currentLine, user) && strstr(currentLine, password))
