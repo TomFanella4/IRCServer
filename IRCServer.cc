@@ -313,24 +313,29 @@ IRCServer::checkPassword(int fd, const char * user, const char * password) {
 void
 IRCServer::addUser(int fd, const char * user, const char * password, const char * args)
 {
-	// Here add a new user. For now always return OK.
+	// Check if user is in password file
 	if (checkPassword(fd, user, password)) {
 		const char * msg = "DENIED\r\n";
 		write(fd, msg, strlen(msg));
 		return;
 	}
 	
+	// User not found in file
+	// Add user to file
 	passwordFile = fopen(PASSWORD_FILE, "a+");
 
+	// Checks if user list needs to be increased
 	if (currentUser == maxUsers) {
 		maxUsers*=2;
 		users = (User*)realloc(users, sizeof(User) * maxUsers);
 	}
 
+	// Assigns username and password
 	users[currentUser].username = strdup(user);
 	users[currentUser].password = strdup(password);
 	currentUser++;
 
+	// Puts username and password in password file
 	fprintf(passwordFile, "%s %s\n", user, password);
 	fflush(passwordFile);
 	fclose(passwordFile);
