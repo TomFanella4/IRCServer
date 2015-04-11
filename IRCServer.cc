@@ -301,7 +301,9 @@ bool
 IRCServer::checkPassword(int fd, const char * user, const char * password) {
 	char currentLine[50];
 
+	printf("start\n");
 	while (fgets(currentLine, 50, passwordFile) != NULL) {
+		printf("Went through while\n");
 		if (strstr(currentLine, user) != NULL && strstr(currentLine, password) != NULL)
 			return true;
 		printf("Went through\n");
