@@ -301,12 +301,11 @@ bool
 IRCServer::checkPassword(int fd, const char * user, const char * password) {
 	char currentLine[50];
 
-	printf("%s %s\n", user, password);
-
-	while (fgets(currentLine, 50, passwordFile) != NULL)
-		if (strstr(currentLine, user) != NULL &&
-			strstr(currentLine, password) != NULL)
+	while (fgets(currentLine, 50, passwordFile) != NULL) {
+		if (strstr(currentLine, user) != NULL && strstr(currentLine, password) != NULL)
 			return true;
+		printf("Went through\n");
+	}
 	
 	return false;
 }
