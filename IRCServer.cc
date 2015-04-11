@@ -323,8 +323,8 @@ IRCServer::addUser(int fd, const char * user, const char * password, const char 
 		users = (User*)realloc(users, sizeof(User) * maxUsers);
 	}
 
-	users[currentUser].username = user;
-	users[currentUser].password = password;
+	users[currentUser].username = strdup(user);
+	users[currentUser].password = strdup(password);
 	currentUser++;
 
 	fprintf(passwordFile, "%s %s\n", user, password);
