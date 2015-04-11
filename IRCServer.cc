@@ -371,7 +371,6 @@ IRCServer::getAllUsers(int fd, const char * user, const char * password,const  c
 
 	for (int i = 0; i < currentUser; i++) {
 		const char * namecpy;
-		const char * msg;
 		namecpy = strcat(strdup(users[i].username), "\n");
 		write(fd, namecpy, strlen(namecpy));
 	}
