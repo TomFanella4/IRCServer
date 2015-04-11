@@ -286,6 +286,7 @@ IRCServer::initialize()
 		token = strtok(currentLine, " ");
 		printf("%s\n", token);
 		users[currentUser].username = token;
+		printf("%s\n", users[currentUser].username);
 		
 		token = strtok(NULL, " ");
 		users[currentUser].password = token;
