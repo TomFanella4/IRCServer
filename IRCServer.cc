@@ -212,21 +212,22 @@ IRCServer::processRequest( int fd )
 	printf("You need to separate the commandLine into those components\n");
 	printf("For now, command, user, and password are hardwired.\n");
 
-	char * token = strtok(commandLine, " ");
+	char * token;
 
+	token = strtok(commandLine, " ");
 	const char * command = token;
+	
 	token = strtok(NULL, " ");
-
 	const char * user = token;
-	token = strtok(NULL, " ");
 	
+	token = strtok(NULL, " ");
 	const char * password = token;
-	token = strtok(NULL, " ");
 	
-	if (token == NULL)
-		token = "";
-
+	token = strtok(NULL, " ");	
 	const char * args = token;
+
+	if (args == NULL)
+		args = "";
 
 	printf("command=%s\n", command);
 	printf("user=%s\n", user);
@@ -301,14 +302,14 @@ IRCServer::initialize()
 bool
 IRCServer::checkPassword(int fd, const char * user, const char * password) {
 	char currentLine[50];
-
 	passwordFile = fopen(PASSWORD_FILE, "a+");
 
 	while (fgets(currentLine, 50, passwordFile) != NULL) {
 		if (strstr(currentLine, user) != NULL && strstr(currentLine, password) != NULL)
 			return true;
 	}
-	
+	fclose(passwordFile);
+
 	return false;
 }
 
