@@ -226,7 +226,7 @@ IRCServer::processRequest( int fd )
 	const char * args = token;
 	
 	if (token == NULL)
-		args = NULL;
+		args = "";
 
 
 	printf("command=%s\n", command);
