@@ -282,18 +282,17 @@ IRCServer::initialize()
 	while (fgets(currentLine, 50, passwordFile) != NULL) {
 		char * token;
 		token = strtok(currentLine, " ");
-		printf("%s\n", token);
+		//printf("%s\n", token);
 		users[currentUser].username = strdup(token);
-		printf("%s\n", users[currentUser].username);
+		//printf("%s\n", users[currentUser].username);
 		
 		token = strtok(NULL, " ");	
-		printf("%s\n", token);
+		//printf("%s\n", token);
 		users[currentUser].password = strdup(token);
 		
 		currentUser++;
 	}
 
-	printf("CU: %d, First: %s\n", currentUser, users[0].username);
 	// Initalize message list
 
 }
@@ -368,12 +367,13 @@ IRCServer::getAllUsers(int fd, const char * user, const char * password,const  c
 		return;
 	}*/
 
-	printf("CU: %d, First: %s\n", currentUser, users[0].username);
+	//printf("CU: %d, First: %s\n", currentUser, users[0].username);
 
 	for (int i = 0; i < currentUser; i++) {
-		const char * uList;
-		uList = users[i].username;
-		write(fd, uList, strlen(uList));
+		const char * namecpy;
+		const char * msg;
+		namecpy = strcat(strdup(users[i].username), "\n");
+		write(fd, namecpy, strlen(namecpy));
 	}
 	
 	write(fd, "\r\n", strlen("\r\n"));
