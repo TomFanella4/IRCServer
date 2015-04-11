@@ -34,8 +34,7 @@ const char * usage =
 
 int QueueLength = 5;
 
-int
-IRCServer::open_server_socket(int port) {
+int IRCServer::open_server_socket(int port) {
 
 	// Set the IP address and port for this server
 	struct sockaddr_in serverIPAddress; 
@@ -77,9 +76,7 @@ IRCServer::open_server_socket(int port) {
 	return masterSocket;
 }
 
-void
-IRCServer::runServer(int port)
-{
+void IRCServer::runServer(int port) {
 	int masterSocket = open_server_socket(port);
 
 	initialize();
@@ -103,9 +100,7 @@ IRCServer::runServer(int port)
 	}
 }
 
-int
-main( int argc, char ** argv )
-{
+int main( int argc, char ** argv ) {
 	// Print usage if not enough arguments
 	if ( argc < 2 ) {
 		fprintf( stderr, "%s", usage );
@@ -167,9 +162,7 @@ main( int argc, char ** argv )
 //            \r\n
 //
 
-void
-IRCServer::processRequest( int fd )
-{
+void IRCServer::processRequest( int fd ) {
 	// Buffer used to store the comand received from the client
 	const int MaxCommandLine = 1024;
 	char commandLine[ MaxCommandLine + 1 ];
@@ -267,9 +260,7 @@ IRCServer::processRequest( int fd )
 	close(fd);	
 }
 
-void
-IRCServer::initialize()
-{
+void IRCServer::initialize() {
 	// Open password file
 	currentUser = 0;
 	maxUsers = 20;
@@ -296,8 +287,7 @@ IRCServer::initialize()
 
 }
 
-bool
-IRCServer::checkPassword(int fd, const char * user, const char * password) {
+bool IRCServer::checkPassword(int fd, const char * user, const char * password) {
 	char currentLine[50];
 	passwordFile = fopen(PASSWORD_FILE, "a+");
 
@@ -310,9 +300,7 @@ IRCServer::checkPassword(int fd, const char * user, const char * password) {
 	return false;
 }
 
-void
-IRCServer::addUser(int fd, const char * user, const char * password, const char * args)
-{
+void IRCServer::addUser(int fd, const char * user, const char * password, const char * args) {
 	// Check if user is in password file
 	if (checkPassword(fd, user, password)) {
 		const char * msg = "DENIED\r\n";
@@ -346,33 +334,34 @@ IRCServer::addUser(int fd, const char * user, const char * password, const char 
 	return;
 }
 
-void
-IRCServer::enterRoom(int fd, const char * user, const char * password, const char * args)
-{
+void IRCServer::createRoom(int fd, const char * user, const char * password, const char * args) {
 }
 
-void
-IRCServer::leaveRoom(int fd, const char * user, const char * password, const char * args)
-{
+void IRCServer::listRooms(int fd, const char * user, const char * password, const char * args) {
+
 }
 
-void
-IRCServer::sendMessage(int fd, const char * user, const char * password, const char * args)
-{
+void IRCServer::enterRoom(int fd, const char * user, const char * password, const char * args) {
+
 }
 
-void
-IRCServer::getMessages(int fd, const char * user, const char * password, const char * args)
-{
+void IRCServer::leaveRoom(int fd, const char * user, const char * password, const char * args) {
+
 }
 
-void
-IRCServer::getUsersInRoom(int fd, const char * user, const char * password, const char * args)
-{
+void IRCServer::sendMessage(int fd, const char * user, const char * password, const char * args) {
+
 }
 
-void
-IRCServer::getAllUsers(int fd, const char * user, const char * password,const  char * args) {
+void IRCServer::getMessages(int fd, const char * user, const char * password, const char * args) {
+
+}
+
+void IRCServer::getUsersInRoom(int fd, const char * user, const char * password, const char * args) {
+
+}
+
+void IRCServer::getAllUsers(int fd, const char * user, const char * password,const  char * args) {
 	
 	const char * msg;
 
