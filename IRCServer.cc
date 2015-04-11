@@ -224,7 +224,7 @@ IRCServer::processRequest( int fd )
 	token = strtok(NULL, " ");
 	
 	if (token == NULL)
-		token = "";
+		token = "\0";
 
 	const char * args = token;
 
