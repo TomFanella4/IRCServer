@@ -283,12 +283,9 @@ IRCServer::initialize()
 	while (fgets(currentLine, 50, passwordFile) != NULL) {
 		char * token;
 		token = strtok(currentLine, " ");
-		//printf("%s\n", token);
 		users[currentUser].username = strdup(token);
-		//printf("%s\n", users[currentUser].username);
 		
 		token = strtok(NULL, " ");	
-		//printf("%s\n", token);
 		users[currentUser].password = strdup(token);
 		
 		currentUser++;
@@ -317,6 +314,12 @@ void
 IRCServer::addUser(int fd, const char * user, const char * password, const char * args)
 {
 	// Here add a new user. For now always return OK.
+	if (checkPassword(fd, user, password)) {
+		const char * msg = "DENIED\r\n";
+		write(fd, msg, strlen(msg));
+		return;
+	}
+	
 	passwordFile = fopen(PASSWORD_FILE, "a+");
 
 	if (currentUser == maxUsers) {
