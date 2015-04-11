@@ -312,7 +312,7 @@ IRCServer::addUser(int fd, const char * user, const char * password, const char 
 
 	if (currentUser == maxUsers) {
 		maxUsers*=2;
-		realloc(users, sizeof(User) * maxUsers);
+		users = (User*)realloc(users, sizeof(User) * maxUsers);
 	}
 
 	users[currentUser].username = user;
