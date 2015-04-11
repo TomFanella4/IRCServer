@@ -279,18 +279,16 @@ IRCServer::initialize()
 	// Initialize users in room
 	char currentLine[50];
 
-	printf("Before while\n");
 	while (fgets(currentLine, 50, passwordFile) != NULL) {
 		char * token;
-		printf("Into while\n");
 		token = strtok(currentLine, " ");
 		printf("%s\n", token);
-		users[currentUser].username = token;
+		users[currentUser].username = strdup(token);
 		printf("%s\n", users[currentUser].username);
 		
 		token = strtok(NULL, " ");	
 		printf("%s\n", token);
-		users[currentUser].password = token;
+		users[currentUser].password = strdup(token);
 		
 		currentUser++;
 	}
