@@ -277,7 +277,7 @@ IRCServer::initialize()
 	passwordFile = fopen(PASSWORD_FILE, "a+");
 
 	// Initialize users in room
-	char * currentLine;
+	char currentLine[50];
 	char * token;
 
 	printf("Before while\n");
