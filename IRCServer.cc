@@ -317,6 +317,7 @@ void
 IRCServer::addUser(int fd, const char * user, const char * password, const char * args)
 {
 	// Here add a new user. For now always return OK.
+	passwordFile = fopen(PASSWORD_FILE, "a+");
 
 	if (currentUser == maxUsers) {
 		maxUsers*=2;
@@ -329,6 +330,7 @@ IRCServer::addUser(int fd, const char * user, const char * password, const char 
 
 	fprintf(passwordFile, "%s %s\n", user, password);
 	fflush(passwordFile);
+	fclose(passwordFile);
 
 	const char * msg =  "OK\r\n";
 	write(fd, msg, strlen(msg));
