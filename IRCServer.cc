@@ -371,7 +371,7 @@ IRCServer::getAllUsers(int fd, const char * user, const char * password,const  c
 	
 	const char * msg;
 
-	if (checkPassword(fd, user, password) == false) {	
+	if (!checkPassword(fd, user, password)) {	
 		msg =  "DENIED\r\n";
 		write(fd, msg, strlen(msg));
 		return;
