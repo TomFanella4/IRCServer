@@ -365,7 +365,9 @@ IRCServer::getAllUsers(int fd, const char * user, const char * password,const  c
 		write(fd, msg, strlen(msg));
 		return;
 	}*/
-	
+
+	printf("CU: %d, First: %s", currentUser, users[0].username);
+
 	for (int i = 0; i < currentUser; i++) {
 		const char * uList;
 		uList = users[i].username;
