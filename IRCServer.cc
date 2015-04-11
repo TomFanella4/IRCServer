@@ -280,7 +280,7 @@ IRCServer::initialize()
 	char * currentLine;
 	char * token;
 
-	while (fgets(currentLine, 50, passwordFile) != NULL) {
+	//while (fgets(currentLine, 50, passwordFile) != NULL) {
 		token = strtok(currentLine, " ");
 		//users[currentUser].username = token;
 		
@@ -288,7 +288,7 @@ IRCServer::initialize()
 		//users[currentUser].password = token;
 		
 		currentUser++;
-	}
+	//}
 
 	// Initalize message list
 
