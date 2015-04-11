@@ -302,7 +302,8 @@ IRCServer::checkPassword(int fd, const char * user, const char * password) {
 	char currentLine[50];
 
 	while (fgets(currentLine, 50, passwordFile) != NULL)
-		if (strstr(currentLine, user) && strstr(currentLine, password))
+		if (strstr(currentLine, user) != NULL &&
+			strstr(currentLine, password) != NULL)
 			return true;
 	
 	return false;
@@ -375,6 +376,6 @@ IRCServer::getAllUsers(int fd, const char * user, const char * password,const  c
 		write(fd, namecpy, strlen(namecpy));
 	}
 	
-	write(fd, "\r\n", strlen("\r\n"));
+	//write(fd, "\r\n", strlen("\r\n"));
 }
 
