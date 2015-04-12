@@ -512,6 +512,8 @@ void IRCServer::sendMessage(int fd, const char * user, const char * password, co
 	sprintf(rooms[roomNum].messages[cMessage], "MSGNUM%d %s %s\n", cMessage + 1, user, message);
 	printf("MSGNUM%d %s %s\n", cMessage + 1, user, message);
 
+	rooms[roomNum].currentMessage++;
+
 	// Updates server	
 	const char * msg =  "OK\r\n";
 	write(fd, msg, strlen(msg));
