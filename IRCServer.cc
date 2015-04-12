@@ -283,8 +283,11 @@ void IRCServer::initialize() {
 	}
 	
 	fclose(passwordFile);
+	
 	// Initalize message list
-
+	currentRoom = 0;
+	maxRooms = 10;
+	rooms = (Room*) malloc(sizeof(Room) * maxRooms);
 }
 
 bool IRCServer::checkPassword(int fd, const char * user, const char * password) {
@@ -335,10 +338,47 @@ void IRCServer::addUser(int fd, const char * user, const char * password, const 
 }
 
 void IRCServer::createRoom(int fd, const char * user, const char * password, const char * args) {
+	
+	// Check username and password
+	if (!checkPassword(fd, user, password)) {	
+		const char * msg =  "DENIED\r\n";
+		write(fd, msg, strlen(msg));
+		return;
+	}
+	
+	// Create room and assign defaults
+	rooms[currentRoom].name = strdup(args);
+	rooms[currentRoom].currentMessage = 0;
+	rooms[currentRoom].currentUsinr = 0;
+	rooms[currentRoom].maxUsinr = 20;
+	rooms[currentRoom].usinr = (User*) malloc(sizeof(User) * rooms[currentRoom].maxUsinr);
+	
+	currentRoom++;
+
+	const char * msg =  "OK\r\n";
+	write(fd, msg, strlen(msg));
+
+	return;
 }
 
 void IRCServer::listRooms(int fd, const char * user, const char * password, const char * args) {
+	
+	// Check username and password
+	if (!checkPassword(fd, user, password)) {	
+		const char * msg =  "DENIED\r\n";
+		write(fd, msg, strlen(msg));
+		return;
+	}
 
+	for (int i = 0; i < currentRoom; i++) {
+		const char * namecpy;
+		namecpy = strcat(strdup(rooms[i].name), "\n");
+		write(fd, namecpy, strlen(namecpy));
+	}
+
+	write(fd, "\r\n", strlen("\r\n"));
+	
+	return;
 }
 
 void IRCServer::enterRoom(int fd, const char * user, const char * password, const char * args) {
@@ -379,6 +419,8 @@ void IRCServer::getAllUsers(int fd, const char * user, const char * password,con
 		write(fd, namecpy, strlen(namecpy));
 	}
 	
-	//write(fd, "\r\n", strlen("\r\n"));
+	write(fd, "\r\n", strlen("\r\n"));
+
+	return;
 }
 

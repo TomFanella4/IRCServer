@@ -19,8 +19,16 @@ class IRCServer {
 
 	typedef struct {
 		const char * name;
-
+		char messages[100][1000];
+		int currentMessage;
+		User * usinr;
+		int currentUsinr;
+		int maxUsinr;
 	} Room;
+
+	int currentRoom;
+	int maxRooms;
+	Room * rooms;
 
 private:
 	int open_server_socket(int port);
