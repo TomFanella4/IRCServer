@@ -230,6 +230,12 @@ void IRCServer::processRequest( int fd ) {
 	if (!strcmp(command, "ADD-USER")) {
 		addUser(fd, user, password, args);
 	}
+	else if (!strcmp(command, "CREATE-ROOM")) {
+		createRoom(fd, user, password, args);
+	}
+	else if (!strcmp(command, "LIST-ROOMS")) {
+		listRooms(fd, user, password, args);
+	}
 	else if (!strcmp(command, "ENTER-ROOM")) {
 		enterRoom(fd, user, password, args);
 	}
