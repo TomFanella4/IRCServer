@@ -301,8 +301,10 @@ bool IRCServer::checkPassword(int fd, const char * user, const char * password) 
 	passwordFile = fopen(PASSWORD_FILE, "a+");
 
 	while (fgets(currentLine, 50, passwordFile) != NULL) {
-		if (strstr(currentLine, user) != NULL && strstr(currentLine, password) != NULL)
+		if (strstr(currentLine, user) != NULL && strstr(currentLine, password) != NULL) {
+			fclose(passwordFile);
 			return true;
+		}
 	}
 	fclose(passwordFile);
 
@@ -311,11 +313,17 @@ bool IRCServer::checkPassword(int fd, const char * user, const char * password) 
 
 void IRCServer::addUser(int fd, const char * user, const char * password, const char * args) {
 	// Check if user is in password file
-	if (checkPassword(fd, user, password)) {
-		const char * msg = "DENIED\r\n";
-		write(fd, msg, strlen(msg));
-		return;
+	char currentLine[50];
+	passwordFile = fopen(PASSWORD_FILE, "a+");
+
+	while (fgets(currentLine, 50, passwordFile) != NULL) {
+		if (strstr(currentLine, user) != NULL) {	
+			const char * msg =  "DENIED\r\n";
+			write(fd, msg, strlen(msg));
+			return;
+		}
 	}
+	fclose(passwordFile);
 	
 	// User not found in file
 	// Add user to file
@@ -501,6 +509,20 @@ void IRCServer::sendMessage(int fd, const char * user, const char * password, co
 			roomNum = i;
 			break;
 		}
+	}
+
+	int userFound = 0;
+	for (int i = 0; i < rooms[roomNum].currentUsinr; i++) {
+		if (!strcmp(rooms[roomNum].usinr[i].username, strdup(user))) {
+			userFound = 1;
+			break;
+		}
+	}
+
+	if (userFound == 0) {
+		const char * msg =  "DENIED\r\n";
+		write(fd, msg, strlen(msg));
+		return;
 	}
 
 	// Prints message in messages array
