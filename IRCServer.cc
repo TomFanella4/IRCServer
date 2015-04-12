@@ -548,7 +548,7 @@ void IRCServer::getMessages(int fd, const char * user, const char * password, co
 	if (maxMess > 100)
 		maxMess = 100;
 
-	for (int i = lastMessageNum; i < maxMess; i++) {
+	for (int i = lastMessageNum - 1; i < maxMess; i++) {
 		const char * msg = rooms[roomNum].messages[i];
 		write(fd, msg, strlen(msg));
 	}
