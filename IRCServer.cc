@@ -477,6 +477,45 @@ void IRCServer::leaveRoom(int fd, const char * user, const char * password, cons
 
 void IRCServer::sendMessage(int fd, const char * user, const char * password, const char * args) {
 
+	// Check username and password
+	if (!checkPassword(fd, user, password)) {	
+		const char * msg =  "DENIED\r\n";
+		write(fd, msg, strlen(msg));
+		return;
+	}
+	
+	// Tokenize the args
+	char * token;
+
+	token = strtok(strdup(args), " ");
+	const char * room = token;
+
+	token = strtok(NULL, " ");
+	const char * message = token;
+
+	int roomNum;
+
+	// Get the current room
+	for (int i = 0; i < currentRoom; i++) {
+		if (!strcmp(room, rooms[i].name)) {
+			roomNum = i;
+			break;
+		}
+	}
+
+	// Checks if current message is over 100
+	if (rooms[roomNum].currentMessage > 99)
+		rooms[roomNum].currentMessage = 0;
+	
+	// Prints message in messages array
+	int cMessage = rooms[roomNum].currentMessage;
+	sprintf(rooms[roomNum].messages[cMessage], "MSGNUM%d %s %s", cMessage + 1, user, message);
+
+	// Updates server	
+	const char * msg =  "OK\r\n";
+	write(fd, msg, strlen(msg));
+
+	return;	
 }
 
 void IRCServer::getMessages(int fd, const char * user, const char * password, const char * args) {
