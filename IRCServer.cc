@@ -481,7 +481,32 @@ void IRCServer::getMessages(int fd, const char * user, const char * password, co
 }
 
 void IRCServer::getUsersInRoom(int fd, const char * user, const char * password, const char * args) {
+	
+	// Check username and password
+	if (!checkPassword(fd, user, password)) {	
+		const char * msg =  "DENIED\r\n";
+		write(fd, msg, strlen(msg));
+		return;
+	}
 
+	int roomNum;
+
+	for (int i = 0; i < currentRoom; i++) {
+		if (!strcmp(args, rooms[i].name)) {
+			roomNum = i;
+			break;
+		}
+	}
+
+	for (int i = 0; i < rooms[roomNum].currentUsinr; i++) {
+		const char * namecpy;
+		namecpy = strcat(strdup(rooms[roomNum].usinr[i].username), "\n");
+		write(fd, namecpy, sizeof(namecpy));
+	}
+	
+	write(fd, "\r\n", strlen("\r\n"));
+
+	return;
 }
 
 void IRCServer::getAllUsers(int fd, const char * user, const char * password,const  char * args) {
