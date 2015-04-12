@@ -449,7 +449,7 @@ void IRCServer::leaveRoom(int fd, const char * user, const char * password, cons
 	}
 
 	for (int i = 0; i < rooms[roomNum].currentUsinr; i++) {
-		if (rooms[roomNum].usinr[i].username == user &&	rooms[roomNum].usinr[i].password == password) {
+		if (rooms[roomNum].usinr[i].username == strdup(user) &&	rooms[roomNum].usinr[i].password == strdup(password)) {
 			for (int j = i; j < rooms[roomNum].currentUsinr - 1; j++) {
 				rooms[roomNum].usinr[j].username = rooms[roomNum].usinr[j + 1].username;
 				rooms[roomNum].usinr[j].password = rooms[roomNum].usinr[j + 1].password;
