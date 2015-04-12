@@ -351,6 +351,14 @@ void IRCServer::createRoom(int fd, const char * user, const char * password, con
 		write(fd, msg, strlen(msg));
 		return;
 	}
+
+	for (int i = 0; i < currentRoom; i++) {
+		if (!strcmp(args, rooms[i].name)) {
+			const char * msg =  "DENIED\r\n";
+			write(fd, msg, strlen(msg));
+			return;
+		}
+	}
 	
 	// Create room and assign defaults
 	rooms[currentRoom].name = strdup(args);
@@ -388,11 +396,80 @@ void IRCServer::listRooms(int fd, const char * user, const char * password, cons
 }
 
 void IRCServer::enterRoom(int fd, const char * user, const char * password, const char * args) {
+	
+	// Check username and password
+	if (!checkPassword(fd, user, password)) {	
+		const char * msg =  "DENIED\r\n";
+		write(fd, msg, strlen(msg));
+		return;
+	}
 
+	int roomNum;
+
+	for (int i = 0; i < currentRoom; i++) {
+		if (!strcmp(args, rooms[i].name)) {
+			roomNum = i;
+			break;
+		}
+	}
+
+	if (rooms[roomNum].currentUsinr == rooms[roomNum].maxUsinr) {
+		rooms[roomNum].maxUsinr *= 2;
+		rooms[roomNum].usinr = (User*) realloc(rooms[roomNum].usinr, 
+								sizeof(rooms[roomNum].usinr) * rooms[roomNum].maxUsinr);
+	}
+
+	rooms[roomNum].usinr[rooms[roomNum].currentUsinr].username = user;
+	rooms[roomNum].usinr[rooms[roomNum].currentUsinr].password = password;
+
+	rooms[roomNum].currentUsinr++;
+	
+	const char * msg =  "OK\r\n";
+	write(fd, msg, strlen(msg));
+
+	return;
 }
 
 void IRCServer::leaveRoom(int fd, const char * user, const char * password, const char * args) {
 
+	// Check username and password
+	if (!checkPassword(fd, user, password)) {	
+		const char * msg =  "DENIED\r\n";
+		write(fd, msg, strlen(msg));
+		return;
+	}
+
+	int roomNum;
+
+	for (int i = 0; i < currentRoom; i++) {
+		if (!strcmp(args, rooms[i].name)) {
+			roomNum = i;
+			break;
+		}
+	}
+
+	for (int i = 0; i < rooms[roomNum].currentUsinr; i++) {
+		if (rooms[roomNum].usinr[i].username == user &&	rooms[roomNum].usinr[i].password == password) {
+			for (int j = i; j < rooms[roomNum].currentUsinr - 1; j++) {
+				rooms[roomNum].usinr[j].username = rooms[roomNum].usinr[j + 1].username;
+				rooms[roomNum].usinr[j].password = rooms[roomNum].usinr[j + 1].password;
+			}
+			rooms[roomNum].usinr[rooms[roomNum].currentUsinr - 1].username = "";
+			rooms[roomNum].usinr[rooms[roomNum].currentUsinr - 1].password = "";
+			
+			rooms[roomNum].currentUsinr--;
+
+			const char * msg =  "OK\r\n";
+			write(fd, msg, strlen(msg));
+
+			return;
+		}
+	}
+
+	const char * msg =  "DENIED\r\n";
+	write(fd, msg, strlen(msg));
+
+	return;	
 }
 
 void IRCServer::sendMessage(int fd, const char * user, const char * password, const char * args) {
