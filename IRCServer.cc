@@ -419,8 +419,8 @@ void IRCServer::enterRoom(int fd, const char * user, const char * password, cons
 								sizeof(rooms[roomNum].usinr) * rooms[roomNum].maxUsinr);
 	}
 
-	rooms[roomNum].usinr[rooms[roomNum].currentUsinr].username = user;
-	rooms[roomNum].usinr[rooms[roomNum].currentUsinr].password = password;
+	rooms[roomNum].usinr[rooms[roomNum].currentUsinr].username = strdup(user);
+	rooms[roomNum].usinr[rooms[roomNum].currentUsinr].password = strdup(password);
 
 	rooms[roomNum].currentUsinr++;
 	
