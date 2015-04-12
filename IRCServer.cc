@@ -490,7 +490,7 @@ void IRCServer::sendMessage(int fd, const char * user, const char * password, co
 	token = strtok(strdup(args), " ");
 	const char * room = token;
 
-	token = strtok(NULL, " ");
+	token = strtok(NULL, "");
 	const char * message = token;
 
 	int roomNum;
@@ -520,6 +520,40 @@ void IRCServer::sendMessage(int fd, const char * user, const char * password, co
 
 void IRCServer::getMessages(int fd, const char * user, const char * password, const char * args) {
 
+	// Check username and password
+	if (!checkPassword(fd, user, password)) {	
+		const char * msg =  "DENIED\r\n";
+		write(fd, msg, strlen(msg));
+		return;
+	}
+	
+	// Tokenize the args
+	char * token;
+
+	token = strtok(strdup(args), " ");
+	const char * messageNum = token;
+
+	token = strtok(NULL, "");
+	const char * room = token;
+
+	int roomNum;
+
+	// Get the current room
+	for (int i = 0; i < currentRoom; i++) {
+		if (!strcmp(room, rooms[i].name)) {
+			roomNum = i;
+			break;
+		}
+	}
+
+	for (int i = 0; i < rooms[roomNum].currentMessage; i++) {
+		const char * msg = rooms[roomNum].messages[i];
+		write(fd, msg, strlen(msg));
+	}
+
+	write(fd, "\r\n", strlen("\r\n"));
+	
+	return;
 }
 
 void IRCServer::getUsersInRoom(int fd, const char * user, const char * password, const char * args) {

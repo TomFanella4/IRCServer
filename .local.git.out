@@ -561,3 +561,6 @@ After doing this, you may fix the identity used for this commit with:
  4 files changed, 41 insertions(+)
  create mode 100644 .IRCServer.h.swp
  rewrite IRCServer (72%)
+[master 07e3091] Make IRCServer
+ 4 files changed, 5 insertions(+), 1 deletion(-)
+ delete mode 100644 .IRCServer.h.swp
