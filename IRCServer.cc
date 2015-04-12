@@ -543,7 +543,16 @@ void IRCServer::getMessages(int fd, const char * user, const char * password, co
 			break;
 		}
 	}
-	
+
+	if (lastMessageNum < 1 || lastMessageNum > rooms[roomNum].currentMessage) {
+		const char * msg =  "DENIED\r\n";
+		write(fd, msg, strlen(msg));
+		return;
+	}
+	else {
+		lastMessageNum %= 100;
+	}
+
 	int maxMess = rooms[roomNum].currentMessage;
 	if (maxMess > 100)
 		maxMess = 100;
