@@ -503,14 +503,9 @@ void IRCServer::sendMessage(int fd, const char * user, const char * password, co
 		}
 	}
 
-	// Checks if current message is over 100
-	if (rooms[roomNum].currentMessage > 99)
-		rooms[roomNum].currentMessage = 0;
-	
 	// Prints message in messages array
 	int cMessage = rooms[roomNum].currentMessage;
-	sprintf(rooms[roomNum].messages[cMessage], "MSGNUM%d %s %s\n", cMessage + 1, user, message);
-	printf("MSGNUM%d %s %s\n", cMessage + 1, user, message);
+	sprintf(rooms[roomNum].messages[cMessage % 100], "%d %s %s\n", cMessage + 1, user, message);
 
 	rooms[roomNum].currentMessage++;
 
@@ -534,7 +529,7 @@ void IRCServer::getMessages(int fd, const char * user, const char * password, co
 	char * token;
 
 	token = strtok(strdup(args), " ");
-	const char * messageNum = token;
+	int lastMessageNum = atoi(token);
 
 	token = strtok(NULL, "");
 	const char * room = token;
@@ -548,8 +543,12 @@ void IRCServer::getMessages(int fd, const char * user, const char * password, co
 			break;
 		}
 	}
+	
+	int maxMess = rooms[roomNum].currentMessage;
+	if (maxMess > 100)
+		maxMess = 100;
 
-	for (int i = 0; i < rooms[roomNum].currentMessage; i++) {
+	for (int i = lastMessageNum; i < maxMess; i++) {
 		const char * msg = rooms[roomNum].messages[i];
 		write(fd, msg, strlen(msg));
 	}
