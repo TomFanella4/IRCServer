@@ -216,7 +216,7 @@ void IRCServer::processRequest( int fd ) {
 	token = strtok(NULL, " ");
 	const char * password = token;
 	
-	token = strtok(NULL, " ");	
+	token = strtok(NULL, "");	
 	const char * args = token;
 
 	if (args == NULL)
