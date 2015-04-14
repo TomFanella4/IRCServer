@@ -618,8 +618,9 @@ void IRCServer::getUsersInRoom(int fd, const char * user, const char * password,
 
 	for (int i = 0; i < rooms[roomNum].currentUsinr; i++) {
 		const char * namecpy;
-		namecpy = strcat(strdup(rooms[roomNum].usinr[i].username), "\n");
+		namecpy = strdup(rooms[roomNum].usinr[i].username);
 		write(fd, namecpy, sizeof(namecpy));
+		write(fd, "\n", sizeof("\n"));
 	}
 	
 	write(fd, "\r\n", strlen("\r\n"));
