@@ -415,13 +415,19 @@ void IRCServer::enterRoom(int fd, const char * user, const char * password, cons
 		return;
 	}
 
-	int roomNum;
+	int roomNum = -1;
 
 	for (int i = 0; i < currentRoom; i++) {
 		if (!strcmp(args, rooms[i].name)) {
 			roomNum = i;
 			break;
 		}
+	}
+
+	if (roomNum == -1) {
+		const char * msg =  "ERROR (No room)\r\n";
+		write(fd, msg, strlen(msg));
+		return;
 	}
 
 	if (rooms[roomNum].currentUsinr == rooms[roomNum].maxUsinr) {
