@@ -618,7 +618,7 @@ void IRCServer::getUsersInRoom(int fd, const char * user, const char * password,
 
 	for (int i = 0; i < rooms[roomNum].currentUsinr; i++) {
 		const char * namecpy;
-		namecpy = strcat(strdup(rooms[roomNum].usinr[i].username), "\r\n");
+		namecpy = strcat(strdup(rooms[roomNum].usinr[i].username), "\n");
 		write(fd, namecpy, sizeof(namecpy));
 	}
 	
@@ -636,8 +636,6 @@ void IRCServer::getAllUsers(int fd, const char * user, const char * password,con
 		write(fd, msg, strlen(msg));
 		return;
 	}
-
-	//printf("CU: %d, First: %s\n", currentUser, users[0].username);
 
 	for (int i = 0; i < currentUser; i++) {
 		const char * namecpy;
