@@ -278,6 +278,9 @@ void IRCServer::initialize() {
 	char currentLine[50];
 
 	while (fgets(currentLine, 50, passwordFile) != NULL) {
+		if (strstr(currentLine, " ") == NULL)
+			break;
+
 		char * token;
 		token = strtok(currentLine, " ");
 		users[currentUser].username = strdup(token);
