@@ -651,3 +651,10 @@ After doing this, you may fix the identity used for this commit with:
 [master f160167] Make IRCServer
  4 files changed, 16 insertions(+), 8 deletions(-)
  delete mode 100644 .IRCServer.cc.swp
+[master 58852ad] Make IRCServer
+ 6 files changed, 3 insertions(+), 272 deletions(-)
+ delete mode 100644 diff.out
+ delete mode 100644 prog.org.out
+ delete mode 100644 prog.out
+ delete mode 100644 talk-server.out
+ delete mode 100644 total.out
