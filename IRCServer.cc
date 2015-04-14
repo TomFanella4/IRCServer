@@ -321,7 +321,7 @@ void IRCServer::addUser(int fd, const char * user, const char * password, const 
 
 	while (fgets(currentLine, 50, passwordFile) != NULL) {
 		if (strstr(currentLine, user) != NULL) {	
-			const char * msg =  "DENIED\r\n";
+			const char * msg =  "ERROR (Wrong password)\r\n";
 			write(fd, msg, strlen(msg));
 			return;
 		}
