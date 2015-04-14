@@ -618,3 +618,8 @@ After doing this, you may fix the identity used for this commit with:
  create mode 100644 prog.out
  create mode 100644 talk-server.out
  rewrite total.txt (63%)
+[master f725b4c] Make IRCServer
+ 5 files changed, 9 insertions(+), 6 deletions(-)
+ rename talk-server.out => .nfs000000000039539d00001e80 (100%)
+ delete mode 100644 diff.out
+ delete mode 100644 prog.out
