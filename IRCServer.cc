@@ -314,16 +314,42 @@ bool IRCServer::checkPassword(int fd, const char * user, const char * password) 
 	return false;
 }
 
-void IRCServer::sortUsers(int fd) {
-	
+void IRCServer::sortUsers(int fd) {	
 	// Sorts the users
 	for (int i = 0; i < currentUser - 1; i++) {
 		if (strcmp(users[i].username, users[i + 1].username) > 0) {
 			const char * tempName;
+			const char * tempPass;
 			
 			tempName = users[i].username;
+			tempPass = users[i].password;
+
 			users[i].username = users[i + 1].username;
+			users[i].password = users[i + 1].password;
+			
 			users[i + 1].username = tempName;
+			users[i + 1].password = tempPass;
+			
+			i = 0;
+		}
+	}
+}
+
+void IRCServer::sortUsersInRoom(int fd, int roomNum) {	
+	// Sorts the users in the specified room number
+	for (int i = 0; i < rooms[roomNum].currentUsinr - 1; i++) {
+		if (strcmp(rooms[roomNum].usinr[i].username, rooms[roomNum].usinr[i + 1].username) > 0) {
+			const char * tempName;
+			const char * tempPass;
+			
+			tempName = rooms[roomNum].usinr[i].username;
+			tempPass = rooms[roomNum].usinr[i].password;
+			
+			rooms[roomNum].usinr[i].username = rooms[roomNum].usinr[i + 1].username;
+			rooms[roomNum].usinr[i].password = rooms[roomNum].usinr[i + 1].password;
+
+			rooms[roomNum].usinr[i + 1].username = tempName;
+			rooms[roomNum].usinr[i + 1].password = tempPass;
 			
 			i = 0;
 		}
@@ -458,6 +484,8 @@ void IRCServer::enterRoom(int fd, const char * user, const char * password, cons
 	rooms[roomNum].usinr[rooms[roomNum].currentUsinr].password = strdup(password);
 
 	rooms[roomNum].currentUsinr++;
+
+	sortUsersInRoom(fd, roomNum);
 	
 	const char * msg =  "OK\r\n";
 	write(fd, msg, strlen(msg));
