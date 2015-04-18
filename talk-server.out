@@ -1,0 +1,220 @@
+RECEIVED: ADD-USER superman clarkkent
+The commandLine has the following format:
+COMMAND <user> <password> <arguments>. See below.
+You need to separate the commandLine into those components
+For now, command, user, and password are hardwired.
+command=ADD-USER
+user=superman
+password=clarkkent
+args=
+RECEIVED: ADD-USER spiderman peterpark
+The commandLine has the following format:
+COMMAND <user> <password> <arguments>. See below.
+You need to separate the commandLine into those components
+For now, command, user, and password are hardwired.
+command=ADD-USER
+user=spiderman
+password=peterpark
+args=
+RECEIVED: ADD-USER aquaman xyz
+The commandLine has the following format:
+COMMAND <user> <password> <arguments>. See below.
+You need to separate the commandLine into those components
+For now, command, user, and password are hardwired.
+command=ADD-USER
+user=aquaman
+password=xyz
+args=
+RECEIVED: ADD-USER mary poppins
+The commandLine has the following format:
+COMMAND <user> <password> <arguments>. See below.
+You need to separate the commandLine into those components
+For now, command, user, and password are hardwired.
+command=ADD-USER
+user=mary
+password=poppins
+args=
+RECEIVED: CREATE-ROOM superman clarkkent java-programming
+The commandLine has the following format:
+COMMAND <user> <password> <arguments>. See below.
+You need to separate the commandLine into those components
+For now, command, user, and password are hardwired.
+command=CREATE-ROOM
+user=superman
+password=clarkkent
+args=java-programming
+RECEIVED: CREATE-ROOM spiderman peterpark c-programming
+The commandLine has the following format:
+COMMAND <user> <password> <arguments>. See below.
+You need to separate the commandLine into those components
+For now, command, user, and password are hardwired.
+command=CREATE-ROOM
+user=spiderman
+password=peterpark
+args=c-programming
+RECEIVED: ENTER-ROOM superman clarkkent java-programming
+The commandLine has the following format:
+COMMAND <user> <password> <arguments>. See below.
+You need to separate the commandLine into those components
+For now, command, user, and password are hardwired.
+command=ENTER-ROOM
+user=superman
+password=clarkkent
+args=java-programming
+RECEIVED: ENTER-ROOM aquaman xyz java-programming
+The commandLine has the following format:
+COMMAND <user> <password> <arguments>. See below.
+You need to separate the commandLine into those components
+For now, command, user, and password are hardwired.
+command=ENTER-ROOM
+user=aquaman
+password=xyz
+args=java-programming
+RECEIVED: ENTER-ROOM spiderman peterpark c-programming
+The commandLine has the following format:
+COMMAND <user> <password> <arguments>. See below.
+You need to separate the commandLine into those components
+For now, command, user, and password are hardwired.
+command=ENTER-ROOM
+user=spiderman
+password=peterpark
+args=c-programming
+RECEIVED: ENTER-ROOM aquaman xyz c-programming
+The commandLine has the following format:
+COMMAND <user> <password> <arguments>. See below.
+You need to separate the commandLine into those components
+For now, command, user, and password are hardwired.
+command=ENTER-ROOM
+user=aquaman
+password=xyz
+args=c-programming
+RECEIVED: ENTER-ROOM mary poppins c-programming
+The commandLine has the following format:
+COMMAND <user> <password> <arguments>. See below.
+You need to separate the commandLine into those components
+For now, command, user, and password are hardwired.
+command=ENTER-ROOM
+user=mary
+password=poppins
+args=c-programming
+RECEIVED: GET-USERS-IN-ROOM superman clarkkent java-programming
+The commandLine has the following format:
+COMMAND <user> <password> <arguments>. See below.
+You need to separate the commandLine into those components
+For now, command, user, and password are hardwired.
+command=GET-USERS-IN-ROOM
+user=superman
+password=clarkkent
+args=java-programming
+RECEIVED: GET-USERS-IN-ROOM mary poppins c-programming
+The commandLine has the following format:
+COMMAND <user> <password> <arguments>. See below.
+You need to separate the commandLine into those components
+For now, command, user, and password are hardwired.
+command=GET-USERS-IN-ROOM
+user=mary
+password=poppins
+args=c-programming
+RECEIVED: ENTER-ROOM spiderman peterpark c-programming
+The commandLine has the following format:
+COMMAND <user> <password> <arguments>. See below.
+You need to separate the commandLine into those components
+For now, command, user, and password are hardwired.
+command=ENTER-ROOM
+user=spiderman
+password=peterpark
+args=c-programming
+RECEIVED: GET-USERS-IN-ROOM spiderman peterpark c-programming
+The commandLine has the following format:
+COMMAND <user> <password> <arguments>. See below.
+You need to separate the commandLine into those components
+For now, command, user, and password are hardwired.
+command=GET-USERS-IN-ROOM
+user=spiderman
+password=peterpark
+args=c-programming
+RECEIVED: SEND-MESSAGE mary poppins c-programming Hi everybody!
+The commandLine has the following format:
+COMMAND <user> <password> <arguments>. See below.
+You need to separate the commandLine into those components
+For now, command, user, and password are hardwired.
+command=SEND-MESSAGE
+user=mary
+password=poppins
+args=c-programming Hi everybody!
+RECEIVED: SEND-MESSAGE mary poppins c-programming Welcome to the talk program!
+The commandLine has the following format:
+COMMAND <user> <password> <arguments>. See below.
+You need to separate the commandLine into those components
+For now, command, user, and password are hardwired.
+command=SEND-MESSAGE
+user=mary
+password=poppins
+args=c-programming Welcome to the talk program!
+RECEIVED: SEND-MESSAGE superman clarkkent java-programming Welcome to java-programming!
+The commandLine has the following format:
+COMMAND <user> <password> <arguments>. See below.
+You need to separate the commandLine into those components
+For now, command, user, and password are hardwired.
+command=SEND-MESSAGE
+user=superman
+password=clarkkent
+args=java-programming Welcome to java-programming!
+RECEIVED: SEND-MESSAGE aquaman xyz java-programming Java is based on C++!
+The commandLine has the following format:
+COMMAND <user> <password> <arguments>. See below.
+You need to separate the commandLine into those components
+For now, command, user, and password are hardwired.
+command=SEND-MESSAGE
+user=aquaman
+password=xyz
+args=java-programming Java is based on C++!
+RECEIVED: GET-MESSAGES superman clarkkent 0 java-programming
+The commandLine has the following format:
+COMMAND <user> <password> <arguments>. See below.
+You need to separate the commandLine into those components
+For now, command, user, and password are hardwired.
+command=GET-MESSAGES
+user=superman
+password=clarkkent
+args=0 java-programming
+RECEIVED: GET-MESSAGES mary poppins 0 c-programming
+The commandLine has the following format:
+COMMAND <user> <password> <arguments>. See below.
+You need to separate the commandLine into those components
+For now, command, user, and password are hardwired.
+command=GET-MESSAGES
+user=mary
+password=poppins
+args=0 c-programming
+RECEIVED: SEND-MESSAGE spiderman peterpark c-programming Hi Mary!
+The commandLine has the following format:
+COMMAND <user> <password> <arguments>. See below.
+You need to separate the commandLine into those components
+For now, command, user, and password are hardwired.
+command=SEND-MESSAGE
+user=spiderman
+password=peterpark
+args=c-programming Hi Mary!
+RECEIVED: SEND-MESSAGE spiderman peterpark c-programming Here I am working on cs240
+The commandLine has the following format:
+COMMAND <user> <password> <arguments>. See below.
+You need to separate the commandLine into those components
+For now, command, user, and password are hardwired.
+command=SEND-MESSAGE
+user=spiderman
+password=peterpark
+args=c-programming Here I am working on cs240
+RECEIVED: GET-MESSAGES mary poppins 0 c-programming
+The commandLine has the following format:
+COMMAND <user> <password> <arguments>. See below.
+You need to separate the commandLine into those components
+For now, command, user, and password are hardwired.
+command=GET-MESSAGES
+user=mary
+password=poppins
+args=0 c-programming
+RECEIVED: LEAVE-ROOM mary poppins c-programming
+The commandLine has the following format:
+COMMAND <user> <password> <arguments>. See below.
+You need to separate the commandLi

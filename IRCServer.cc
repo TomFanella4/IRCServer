@@ -475,7 +475,7 @@ void IRCServer::enterRoom(int fd, const char * user, const char * password, cons
 	}
 
 	for (int i = 0; i < rooms[roomNum].currentUsinr; i++) {
-		if (strcmp(user, rooms[roomNum].usinr[i].username)) {
+		if (strcmp(user, rooms[roomNum].usinr[i].username) == 0) {
 			const char * msg =  "OK\r\n";
 			write(fd, msg, strlen(msg));
 			return;
