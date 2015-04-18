@@ -1,0 +1,20 @@
+68c68
+< ERROR (User not in room)
+---
+> ERROR (user not in room)
+77c77
+< ERROR (User not in room)
+---
+> ERROR (user not in room)
+86c86
+< NO-NEW-MESSAGES
+---
+> ERROR (User not in room)
+91c91
+< NO-NEW-MESSAGES
+---
+> ERROR (User not in room)
+105c105
+< NO-NEW-MESSAGES
+---
+> ERROR (User not in room)
