@@ -722,3 +722,9 @@ After doing this, you may fix the identity used for this commit with:
  delete mode 100644 diff.out
  delete mode 100644 prog.out
  delete mode 100644 talk-server.out
+[master fc22ad5] Make IRCServer
+ 7 files changed, 13 insertions(+), 3 deletions(-)
+ create mode 100755 .nfs000000000039004600001e81
+ create mode 100644 diff.out
+ create mode 100644 prog.out
+ create mode 100644 talk-server.out
