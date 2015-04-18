@@ -314,6 +314,22 @@ bool IRCServer::checkPassword(int fd, const char * user, const char * password) 
 	return false;
 }
 
+void IRCServer::sortUsers(int fd) {
+	
+	// Sorts the users
+	for (int i = 0; i < currentUser - 1; i++) {
+		if (strcmp(users[i].username, users[i + 1].username) > 0) {
+			const char * tempName;
+			
+			tempName = users[i].username;
+			users[i].username = users[i + 1].username;
+			users[i + 1].username = tempName;
+			
+			i = 0;
+		}
+	}
+}
+
 void IRCServer::addUser(int fd, const char * user, const char * password, const char * args) {
 	// Check if user is in password file
 	char currentLine[50];
@@ -347,6 +363,8 @@ void IRCServer::addUser(int fd, const char * user, const char * password, const 
 	fprintf(passwordFile, "%s %s\n", user, password);
 	fflush(passwordFile);
 	fclose(passwordFile);
+
+	sortUsers(fd);
 
 	const char * msg =  "OK\r\n";
 	write(fd, msg, strlen(msg));

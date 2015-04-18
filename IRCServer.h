@@ -36,6 +36,7 @@ private:
 public:
 	void initialize();
 	bool checkPassword(int fd, const char * user, const char * password);
+	void sortUsers(int fd);
 	void processRequest( int socket );
 	void addUser(int fd, const char * user, const char * password, const char * args);
 	void createRoom(int fd, const char * user, const char * password, const char * args);
