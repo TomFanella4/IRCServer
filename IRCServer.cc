@@ -486,7 +486,7 @@ void IRCServer::leaveRoom(int fd, const char * user, const char * password, cons
 		}
 	}
 
-	const char * msg =  "DENIED\r\n";
+	const char * msg =  "ERROR (No user in room)\r\n";
 	write(fd, msg, strlen(msg));
 
 	return;	
@@ -536,7 +536,7 @@ void IRCServer::sendMessage(int fd, const char * user, const char * password, co
 
 	// Prints message in messages array
 	int cMessage = rooms[roomNum].currentMessage;
-	sprintf(rooms[roomNum].messages[cMessage % 100], "%d %s %s\n", cMessage + 1, user, message);
+	sprintf(rooms[roomNum].messages[cMessage % 100], "%d %s %s\n", cMessage, user, message);
 
 	rooms[roomNum].currentMessage++;
 
@@ -589,7 +589,7 @@ void IRCServer::getMessages(int fd, const char * user, const char * password, co
 		return;
 	}
 
-	if (lastMessageNum < 1 || lastMessageNum > rooms[roomNum].currentMessage) {
+	if (lastMessageNum < 0 || lastMessageNum > rooms[roomNum].currentMessage) {
 		const char * msg =  "NO-NEW-MESSAGES\r\n";
 		write(fd, msg, strlen(msg));
 		return;
@@ -602,7 +602,7 @@ void IRCServer::getMessages(int fd, const char * user, const char * password, co
 	if (maxMess > 100)
 		maxMess = 100;
 
-	for (int i = lastMessageNum - 1; i < maxMess; i++) {
+	for (int i = lastMessageNum; i < maxMess; i++) {
 		const char * msg = rooms[roomNum].messages[i];
 		write(fd, msg, strlen(msg));
 	}
