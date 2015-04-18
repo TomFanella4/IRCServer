@@ -790,3 +790,6 @@ After doing this, you may fix the identity used for this commit with:
  create mode 100644 prog.out
  create mode 100644 talk-server.out
  create mode 100644 total.out
+[master ee81f6e] Make IRCServer
+ 4 files changed, 26 insertions(+)
+ rewrite IRCServer (70%)
