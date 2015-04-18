@@ -635,7 +635,7 @@ void IRCServer::getMessages(int fd, const char * user, const char * password, co
 		return;
 	}
 
-	if (lastMessageNum < 0 || lastMessageNum > rooms[roomNum].currentMessage) {
+	if (lastMessageNum < 0 || lastMessageNum >= rooms[roomNum].currentMessage) {
 		const char * msg =  "NO-NEW-MESSAGES\r\n";
 		write(fd, msg, strlen(msg));
 		return;
