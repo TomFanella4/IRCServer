@@ -529,7 +529,7 @@ void IRCServer::sendMessage(int fd, const char * user, const char * password, co
 	}
 
 	if (userFound == 0) {
-		const char * msg =  "ERROR (User not in room)\r\n";
+		const char * msg =  "ERROR (user not in room)\r\n";
 		write(fd, msg, strlen(msg));
 		return;
 	}
@@ -573,6 +573,20 @@ void IRCServer::getMessages(int fd, const char * user, const char * password, co
 			roomNum = i;
 			break;
 		}
+	}
+	
+	int userFound = 0;
+	for (int i = 0; i < rooms[roomNum].currentUsinr; i++) {
+		if (!strcmp(rooms[roomNum].usinr[i].username, strdup(user))) {
+			userFound = 1;
+			break;
+		}
+	}
+
+	if (userFound == 0) {
+		const char * msg =  "ERROR (User not in room)\r\n";
+		write(fd, msg, strlen(msg));
+		return;
 	}
 
 	if (lastMessageNum < 1 || lastMessageNum > rooms[roomNum].currentMessage) {
