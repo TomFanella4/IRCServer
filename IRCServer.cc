@@ -474,6 +474,14 @@ void IRCServer::enterRoom(int fd, const char * user, const char * password, cons
 		return;
 	}
 
+	for (int i = 0; i < rooms[roomNum].currentUsinr; i++) {
+		if (strcmp(user, rooms[roomNum].usinr[i].username)) {
+			const char * msg =  "OK\r\n";
+			write(fd, msg, strlen(msg));
+			return;
+		}
+	}
+
 	if (rooms[roomNum].currentUsinr == rooms[roomNum].maxUsinr) {
 		rooms[roomNum].maxUsinr *= 2;
 		rooms[roomNum].usinr = (User*) realloc(rooms[roomNum].usinr, 
