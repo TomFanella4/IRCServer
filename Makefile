@@ -1,10 +1,7 @@
 
 CXX = g++ -fPIC
 
-all: HashTableVoidTest IRCServer
-
-HashTableVoidTest: HashTableVoidTest.cc HashTableVoid.cc
-	g++ -g -o HashTableVoidTest HashTableVoidTest.cc HashTableVoid.cc
+all: IRCServer
 
 IRCServer: IRCServer.cc
 	g++ -g -o IRCServer IRCServer.cc
@@ -13,6 +10,6 @@ IRCServer: IRCServer.cc
 
 clean:
 	rm -f *.out
-	rm -f *.o HashTableVoidTest IRCServer
+	rm -f *.o IRCServer
 
 
